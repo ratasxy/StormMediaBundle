@@ -1,0 +1,48 @@
+parameters:
+    storm.media.twig.extension.class:          Storm\MediaBundle\Twig\MediaExtension
+    storm.media.templating.helper.class:       Storm\MediaBundle\Templating\MediaHelper
+
+services:
+    # Managers
+    storm.media.gallery_manager:
+        class: Storm\MediaBundle\Media\GalleryManager
+
+    storm.media.media_manager:
+        class: Storm\MediaBundle\Media\MediaManager
+        arguments:
+            - %storm.media.medias%
+
+    # Doctrine
+    storm.media.doctrine.metadata.listener:
+        class: Storm\MediaBundle\Listener\LoadMetadataListener
+        arguments:
+            - @storm.media.media_manager
+        tags:
+            - { name: doctrine.event_listener, event: loadClassMetadata }
+
+    # Providers
+    storm.media.provider.local:
+        class: Storm\MediaBundle\Provider\LocalProvider
+        tags:
+            - { name: storm.media.provider, id: local }
+    storm.media.provider.remote:
+        class: Storm\MediaBundle\Provider\RemoteProvider
+        tags:
+            - { name: storm.media.provider, id: remote }
+
+    # Templating
+    storm.media.templating.helper:
+        class: %storm.media.templating.helper.class%
+        arguments:
+            - @templating
+            - @storm.media.gallery_manager
+            - @storm.media.media_manager
+        tags:
+            - { name: templating.helper }
+
+    storm.media.twig.extension:
+        class: %storm.media.twig.extension.class%
+        arguments:
+            - @service_container
+        tags:
+            - { name: twig.extension }
