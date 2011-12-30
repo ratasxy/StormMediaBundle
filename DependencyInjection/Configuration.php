@@ -16,7 +16,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('storm.media');
+        $rootNode = $treeBuilder->root('storm_media');
 
         $rootNode
             ->children()
