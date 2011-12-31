@@ -40,6 +40,7 @@ class MediaHelper extends Helper
         return $this->templating->render($media->getTemplate(), array(
             'media' => $media->getEntity(),
             'options' => $media->getOptions(),
+            'type' => $media->getType(),
         ));
     }
 
