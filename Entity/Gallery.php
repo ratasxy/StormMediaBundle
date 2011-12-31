@@ -10,7 +10,7 @@ use Storm\MediaBundle\Entity\Item;
  * Storm\MediaBundle\Entity\Gallery
  *
  * @ORM\Entity()
- * @ORM\Table("storm_media__gallery")
+ * @ORM\Table(name="storm_media__gallery")
  */
 class Gallery implements GalleryInterface
 {
