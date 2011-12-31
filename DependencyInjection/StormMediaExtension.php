@@ -24,7 +24,7 @@ class StormMediaExtension extends Extension
 
         $config = $processor->processConfiguration($configuration, $configs);
 
-        $container->setParameter('storm.media.medias', $config['medias']);
+        $container->setParameter('storm.media.types', $config['medias']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('media.yml');
