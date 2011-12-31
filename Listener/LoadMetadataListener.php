@@ -29,9 +29,9 @@ class LoadMetadataListener
         $meta = $args->getClassMetadata();
         if ($meta->getName() == 'Storm\MediaBundle\Entity\Item') {
             $map = array();
-            foreach ($this->media_factory->getMedias() as $id => $media)
+            foreach ($this->media_factory->getMedias() as $entity => $media)
             {
-                $map[$id] = $media['entity'];
+                $map[$media['type']] = $entity;
             }
             $meta->setDiscriminatorMap($map);
         }
