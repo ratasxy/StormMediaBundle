@@ -12,7 +12,7 @@ use Storm\MediaBundle\Entity\ItemInterface;
 
 class Media
 {
-    private $name;
+    private $type;
 
     private $entity;
 
@@ -20,9 +20,9 @@ class Media
 
     private $options;
 
-    public function __construct($name, ItemInterface $entity, $template, array $options = array())
+    public function __construct($type, ItemInterface $entity, $template, array $options = array())
     {
-        $this->name = $name;
+        $this->type = $type;
         $this->entity = $entity;
         $this->template = $template;
         $this->options = $options;
@@ -33,9 +33,9 @@ class Media
         return $this->entity;
     }
 
-    public function getName()
+    public function getType()
     {
-        return $this->name;
+        return $this->type;
     }
 
     public function getOptions()
