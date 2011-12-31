@@ -4,13 +4,13 @@ namespace Storm\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Storm\MediaBundle\Entity\Media;
+use Storm\MediaBundle\Entity\Item;
 
 /**
  * Storm\MediaBundle\Entity\Gallery
  *
  * @ORM\Entity()
- * @ORM\Table("storm.media__gallery")
+ * @ORM\Table("storm_media__gallery")
  */
 class Gallery implements GalleryInterface
 {
@@ -38,15 +38,15 @@ class Gallery implements GalleryInterface
     private $meta;
 
     /**
-     * @var ArrayCollection $medias
+     * @var ArrayCollection $items
      *
-     * @ORM\OneToMany(targetEntity="Media", mappedBy="gallery")
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="gallery")
      */
-    private $medias;
+    private $items;
 
     public function __construct()
     {
-        $this->medias = new ArrayCollection();
+        $this->items = new ArrayCollection();
     }
 
     public function __toString()
@@ -105,39 +105,39 @@ class Gallery implements GalleryInterface
     }
 
     /**
-     * Get medias
+     * Get items
      *
-     * @param ArrayCollection $medias
+     * @param ArrayCollection $items
      */
-    public function setMedias($medias)
+    public function setItems($items)
     {
-        /* @var $media Media */
-        foreach ($medias as $media)
+        /* @var $item Item */
+        foreach ($items as $item)
         {
-            $media->setGallery($this);
+            $item->setGallery($this);
         }
-        $this->medias = $medias;
+        $this->items = $items;
     }
 
     /**
-     * Set medias
+     * Set items
      *
      * @return ArrayCollection
      */
-    public function getMedias()
+    public function getItems()
     {
-        return $this->medias;
+        return $this->items;
     }
 
     /**
-     * Add media
+     * Add item
      *
-     * @param Media $media
+     * @param ItemInterface $item
      */
-    public function addMedia(MediaInterface $media)
+    public function addItem(ItemInterface $item)
     {
-        $this->medias->add($media);
-        $media->setGallery($this);
+        $this->items->add($item);
+        $item->setGallery($this);
     }
 
 }

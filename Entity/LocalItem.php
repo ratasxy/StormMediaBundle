@@ -4,10 +4,7 @@ namespace Storm\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\MappedSuperClass()
- */
-abstract class LocalMedia extends Media
+abstract class LocalItem extends Item
 {
     /**
      * @var string $filesystem
@@ -30,13 +27,5 @@ abstract class LocalMedia extends Media
     public function getFilesystem()
     {
         return $this->filesystem;
-    }
-
-    /**
-     * @return string
-     */
-    public function getProvider()
-    {
-        return "storm.media.provider.local";
     }
 }

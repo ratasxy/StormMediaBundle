@@ -3,15 +3,14 @@
 namespace Storm\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
- * @ORM\Table("storm.media__media")
+ * @ORM\Table("storm_media__item")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  */
-abstract class Media implements MediaInterface
+abstract class Item implements ItemInterface
 {
     /**
      * @var integer $id
@@ -96,7 +95,7 @@ abstract class Media implements MediaInterface
     /**
      * Set gallery
      *
-     * @param Gallery $gallery
+     * @param \Storm\MediaBundle\Entity\GalleryInterface $gallery
      */
     public function setGallery(GalleryInterface $gallery)
     {

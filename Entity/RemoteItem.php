@@ -4,10 +4,7 @@ namespace Storm\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\MappedSuperClass()
- */
-abstract class RemoteMedia extends Media
+abstract class RemoteMedia extends Item
 {
     /**
      * @var string $url
@@ -17,7 +14,7 @@ abstract class RemoteMedia extends Media
     private $url;
 
     /**
-     * @param string $url
+     * @param $url
      */
     public function setUrl($url)
     {
@@ -30,13 +27,5 @@ abstract class RemoteMedia extends Media
     public function getUrl()
     {
         return $this->url;
-    }
-
-    /**
-     * @return string
-     */
-    public function getProvider()
-    {
-        return "storm.media.provider.remote";
     }
 }

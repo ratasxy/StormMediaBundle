@@ -22,9 +22,9 @@ interface GalleryInterface
 
     function getMeta();
 
-    function setMedias($medias);
+    function setItems($items);
 
-    function getMedias();
+    function getItems();
 
-    function addMedia(MediaInterface $medias);
+    function addItem(ItemInterface $item);
 }
