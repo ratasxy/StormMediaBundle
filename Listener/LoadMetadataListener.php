@@ -9,28 +9,27 @@
 namespace Storm\MediaBundle\Listener;
 
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
-use Storm\MediaBundle\Media\MediaManagerInterface;
+use Storm\MediaBundle\Media\MediaFactoryInterface;
 
 class LoadMetadataListener
 {
     /**
-     * @var MediaManagerInterface
+     * @var MediaFactoryInterface
      */
-    private $media_manager;
+    private $media_factory;
 
-    public function __construct(MediaManagerInterface $media_manager)
+    public function __construct(MediaFactoryInterface $media_factory)
     {
-        $this->media_manager = $media_manager;
+        $this->media_factory = $media_factory;
     }
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $args)
     {
         /** @var $meta \Doctrine\ORM\Mapping\ClassMetadataInfo */
         $meta = $args->getClassMetadata();
-
-        if ($meta->getName() == 'Storm\MediaBundle\Entity\Media') {
+        if ($meta->getName() == 'Storm\MediaBundle\Entity\Item') {
             $map = array();
-            foreach ($this->media_manager->getMedias() as $id => $media)
+            foreach ($this->media_factory->getMedias() as $id => $media)
             {
                 $map[$id] = $media['entity'];
             }

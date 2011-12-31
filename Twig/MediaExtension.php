@@ -10,7 +10,7 @@ namespace Storm\MediaBundle\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use Storm\MediaBundle\Entity\MediaInterface;
+use Storm\MediaBundle\Entity\ItemInterface;
 use Storm\MediaBundle\Entity\GalleryInterface;
 
 class MediaExtension extends \Twig_Extension
@@ -35,7 +35,7 @@ class MediaExtension extends \Twig_Extension
         );
     }
 
-    public function renderMedia(MediaInterface $media)
+    public function renderMedia(ItemInterface $media)
     {
         return $this->container->get('storm.media.templating.helper')->media($media);
     }

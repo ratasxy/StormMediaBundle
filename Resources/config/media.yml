@@ -4,39 +4,28 @@ parameters:
 
 services:
     # Managers
-    storm.media.gallery_manager:
-        class: Storm\MediaBundle\Media\GalleryManager
+#    storm.media.gallery_manager:
+#        class: Storm\MediaBundle\Media\GalleryManager
 
-    storm.media.media_manager:
-        class: Storm\MediaBundle\Media\MediaManager
+    storm.media.media_factory:
+        class: Storm\MediaBundle\Media\MediaFactory
         arguments:
-            - %storm.media.medias%
+            - %storm.media.types%
 
     # Doctrine
     storm.media.doctrine.metadata.listener:
         class: Storm\MediaBundle\Listener\LoadMetadataListener
         arguments:
-            - @storm.media.media_manager
+            - @storm.media.media_factory
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }
-
-    # Providers
-    storm.media.provider.local:
-        class: Storm\MediaBundle\Provider\LocalProvider
-        tags:
-            - { name: storm.media.provider, id: local }
-    storm.media.provider.remote:
-        class: Storm\MediaBundle\Provider\RemoteProvider
-        tags:
-            - { name: storm.media.provider, id: remote }
 
     # Templating
     storm.media.templating.helper:
         class: %storm.media.templating.helper.class%
         arguments:
             - @templating
-            - @storm.media.gallery_manager
-            - @storm.media.media_manager
+            - @storm.media.media_factory
         tags:
             - { name: templating.helper }
 

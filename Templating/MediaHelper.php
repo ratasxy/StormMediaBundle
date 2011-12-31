@@ -10,10 +10,9 @@ namespace Storm\MediaBundle\Templating;
 
 use Symfony\Component\Templating\Helper\Helper;
 use Symfony\Component\Templating\EngineInterface;
-use Storm\MediaBundle\Media\GalleryManagerInterface;
-use Storm\MediaBundle\Media\MediaManagerInterface;
+use Storm\MediaBundle\Media\MediaFactoryInterface;
 
-use Storm\MediaBundle\Entity\MediaInterface;
+use Storm\MediaBundle\Entity\ItemInterface;
 use Storm\MediaBundle\Entity\GalleryInterface;
 
 class MediaHelper extends Helper
@@ -24,27 +23,23 @@ class MediaHelper extends Helper
     private $templating;
 
     /**
-     * @var GalleryManagerInterface
+     * @var MediaFactoryInterface
      */
-    private $gallery_manager;
+    private $media_factory;
 
-    /**
-     * @var MediaManagerInterface
-     */
-    private $media_manager;
-
-    public function __construct(EngineInterface $templating, GalleryManagerInterface $gallery_manager, MediaManagerInterface $media_manager)
+    public function __construct(EngineInterface $templating, MediaFactoryInterface $media_factory)
     {
         $this->templating = $templating;
-        $this->gallery_manager = $gallery_manager;
-        $this->media_manager = $media_manager;
+        $this->media_factory = $media_factory;
     }
 
-    public function media(MediaInterface $media)
+    public function media(ItemInterface $item)
     {
-        $provider = $this->media_manager->getProvider($media);
-        return $this->templating->render($provider->getTemplate(), array(
-            'media' => $media,
+        /** @var $media \Storm\MediaBundle\Media\Media */
+        $media = $this->media_factory->create($item);
+        return $this->templating->render($media->getTemplate(), array(
+            'media' => $media->getEntity(),
+            'options' => $media->getOptions(),
         ));
     }
 
